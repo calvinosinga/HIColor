@@ -521,8 +521,8 @@ def main():
     """
     Handles io and params for interactions between the methods. Uncomment all methods to do a full run all at once.
     """
-    #create_fields(PATH+'input/', PATH+'output/', 99, FILENO)
-    #test_field_occupations(PATH+'output/', PATH+'power spectrum/',PATH+'plots/', 99)
+    create_fields(PATH+'input/', PATH+'output/', 99, FILENO)
+    test_field_occupations(PATH+'output/', PATH+'power spectrum/',PATH+'plots/', 99)
     color_1Dpk(PATH+'power spectrum/', PATH+'plots/',99)
     
     
