@@ -35,10 +35,10 @@ if has_key:
         else:
             if rmag<=LUM_MIN:
                 # if rmag is significant enough to be observed by (Swanson et al), include it in blue/red
-                if isred(gmag-rmag,rmag) and COLOR='red':
-                    red[b[0],b[1],b[2]]+= mass[j]
-                elif not isred(gmag-rmag,rmag) and COLOR='blue':
-                    blue[b[0],b[1],b[2]] += mass[j]
+                if isred(gmag-rmag,rmag) and COLOR=='red':
+                    col[b[0],b[1],b[2]]+= mass[j]
+                elif not isred(gmag-rmag,rmag) and COLOR=='blue':
+                    col[b[0],b[1],b[2]] += mass[j]
         
 w = hp.File('color_'+str(SNAPSHOT)+'_'+str(CHUNK)+'_'+str(COLOR)+'.hdf5', 'w')
 if COLOR == 'color':
