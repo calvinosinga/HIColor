@@ -43,3 +43,4 @@ if has_key:
             print('incorrect field argument - should be bright, dim, nondetection, or magnitude')
 w = hp.File('lumin_'+str(SNAPSHOT)+'_'+str(CHUNK)+'_' +FIELD+'.hdf5', 'w')
 w.create_dataset(FIELD, data=dat)
+

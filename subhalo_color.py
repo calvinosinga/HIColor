@@ -45,3 +45,4 @@ if COLOR == 'color':
     w.create_dataset('color',data=color)
 else:
     w.create_dataset(COLOR, data=col)
+    
