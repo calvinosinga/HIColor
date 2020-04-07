@@ -8,6 +8,7 @@ grid = (2048,2048,2048)
 def get_mass(path):
     try:
         f=hp.File(path,'r')
+        print()
     except IOError:
         print('files not found')
         return np.zeros(grid)
@@ -23,9 +24,9 @@ def get_mass(path):
 
 mf = get_mass('ptl_99_'+str(first)+'.hdf5')
 sf = get_mass('ptl_99_'+str(second)+'.hdf5')
-total = np.add(mf,sf)
+mf = np.add(mf,sf)
 w = hp.File('subtotal1_ptl_'+str(first)+'_'+str(second)+'.hdf5','w')
-w.create_dataset("mass",data=total)
+w.create_dataset("mass",data=mf)
 # try:
 #     f = hp.File('ptl_99_'+str(first)+'.hdf5', 'r')
 #     s = hp.File('ptl_99_'+str(second)+'.hdf5', 'r')
