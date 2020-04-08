@@ -22,11 +22,13 @@ def get_mass(path):
             return mass
             
 
-mf = get_mass('ptl_99_'+str(first)+'.hdf5')
+total = get_mass('ptl_99_'+str(first)+'.hdf5')
 sf = get_mass('ptl_99_'+str(second)+'.hdf5')
-mf = np.add(mf,sf)
+print(sys.getsizeof(total))
+print(sys.getsizeof(sf))
+total = np.add(total,sf)
 w = hp.File('subtotal1_ptl_'+str(first)+'_'+str(second)+'.hdf5','w')
-w.create_dataset("mass",data=mf)
+w.create_dataset("mass",data=total)
 # try:
 #     f = hp.File('ptl_99_'+str(first)+'.hdf5', 'r')
 #     s = hp.File('ptl_99_'+str(second)+'.hdf5', 'r')
