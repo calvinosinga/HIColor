@@ -24,10 +24,10 @@ def get_mass(path):
             
 
 total = get_mass('ptl_99_'+str(first)+'.hdf5')
-sf = get_mass('ptl_99_'+str(second)+'.hdf5')
 print(sys.getsizeof(total))
+sf = get_mass('ptl_99_'+str(second)+'.hdf5')
 print(sys.getsizeof(sf))
-total = np.add(total,sf)
+total = np.add(total,sf,dtype=np.float32)
 print('finished adding, new file:')
 print(sys.getsizeof(total))
 w = hp.File('subtotal1_ptl_'+str(first)+'_'+str(second)+'.hdf5','w')
