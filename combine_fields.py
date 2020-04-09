@@ -11,14 +11,15 @@ def get_mass(path):
         print()
     except IOError:
         print('files not found')
-        return np.zeros(grid)
+        return np.zeros(grid, dtype=np.float32)
     else:
         try:
             mass = f["mass"]
         except KeyError:
             print('mass field not found - creating substitute')
-            return np.zeros(grid)
+            return np.zeros(grid, dtype=np.float32)
         else:
+            print('correctly found the mass')
             return mass
             
 
@@ -27,6 +28,8 @@ sf = get_mass('ptl_99_'+str(second)+'.hdf5')
 print(sys.getsizeof(total))
 print(sys.getsizeof(sf))
 total = np.add(total,sf)
+print('finished adding, new file:')
+print(sys.getsizeof(total))
 w = hp.File('subtotal1_ptl_'+str(first)+'_'+str(second)+'.hdf5','w')
 w.create_dataset("mass",data=total)
 # try:
