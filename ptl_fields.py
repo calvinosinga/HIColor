@@ -14,7 +14,7 @@ BOXSIZE = 75 #Mpc/h
 f= hp.File("snap_0"+str(snapshot)+'.'+str(chunk)+".hdf5",'r')
 keys = list(f.keys())
 edges = np.linspace(0,BOXSIZE*1000, grid[0])
-total = np.zeros(grid)
+total = np.zeros(grid, dtype=np.float32)
 header = dict(f['Header'].attrs)
 dkptl = header['MassTable'][1]
 for k in keys:
@@ -33,8 +33,3 @@ for k in keys:
 
 w = hp.File('ptl_'+str(snapshot)+'_'+str(chunk)+'.hdf5', 'w')
 w.create_dataset("mass", data=total)
-
-
-
-
-
