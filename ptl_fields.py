@@ -30,6 +30,6 @@ for k in keys:
         for ptl,b in enumerate(bins):
             total[b[0],b[1],b[2]]+=dkptl
         
-
+print(sys.getsizeof(total))
 w = hp.File('ptl_'+str(snapshot)+'_'+str(chunk)+'.hdf5', 'w')
 w.create_dataset("mass", data=total)
