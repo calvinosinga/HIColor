@@ -8,13 +8,12 @@ grid = (2048,2048,2048)
 def get_mass(path):
     try:
         f=hp.File(path,'r')
-        print()
     except IOError:
         print('files not found')
         return np.zeros(grid, dtype=np.float32)
     else:
         try:
-            mass = f["mass"]
+            mass = f["mass"][:].astype(np.float32)
         except KeyError:
             print('mass field not found - creating substitute')
             return np.zeros(grid, dtype=np.float32)
