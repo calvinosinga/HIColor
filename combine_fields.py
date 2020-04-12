@@ -1,8 +1,12 @@
 import numpy as np
 import h5py as hp
 import sys
-first = sys.argv[1]
-second = sys.argv[2]
+
+first = int(sys.argv[1])
+second = int(sys.argv[2])
+process = str(first)
+first = [str(first*2),str((first*2+1))]
+second = [str(second*2),str((second*2+1))]
 grid = (2048,2048,2048)
 
 def get_mass(path):
@@ -20,16 +24,15 @@ def get_mass(path):
         else:
             print('correctly found the mass')
             return mass
-            
 
-total = get_mass('ptl_99_'+str(first)+'.hdf5')
+total = get_mass('subtotal1_ptl_99_'+first[0]+'_'+first[1]+'.hdf5')
 print(sys.getsizeof(total))
-sf = get_mass('ptl_99_'+str(second)+'.hdf5')
+sf = get_mass('subtotal1_ptl_99_'+second[0]+'_'+second[1]+'.hdf5')
 print(sys.getsizeof(sf))
 total = np.add(total,sf,dtype=np.float32)
 print('finished adding, new file:')
 print(sys.getsizeof(total))
-w = hp.File('subtotal1_ptl_'+str(first)+'_'+str(second)+'.hdf5','w')
+w = hp.File('subtotal2_ptl_'+process+'.hdf5','w')
 w.create_dataset("mass",data=total)
 # try:
 #     f = hp.File('ptl_99_'+str(first)+'.hdf5', 'r')
