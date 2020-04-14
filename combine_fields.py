@@ -29,13 +29,13 @@ def get_mass(path):
             print('correctly found the mass')
             return mass
 
-total = get_mass('subtotal1_ptl_99_'+first+'_'+second+'.hdf5')
+total = get_mass('subtotal1_ptl_'+first+'_'+second+'.hdf5')
 print(sys.getsizeof(total))
-sf = get_mass('subtotal1_ptl_99_'+third+'_'+fourth+'.hdf5')
+sf = get_mass('subtotal1_ptl_'+third+'_'+fourth+'.hdf5')
 total = np.add(total,sf,dtype=np.float32)
-sf = get_mass('subtotal1_ptl_99_'+fifth+'_'+sixth+'.hdf5')
+sf = get_mass('subtotal1_ptl_'+fifth+'_'+sixth+'.hdf5')
 total = np.add(total,sf, dtype=np.float32)
-sf = get_mass('subtotal1_ptl_99_'+seventh+'_'+eighth+'.hdf5')
+sf = get_mass('subtotal1_ptl_'+seventh+'_'+eighth+'.hdf5')
 total = np.add(total,sf,dtype=np.float32)
 print('finished adding, new file:')
 print(sys.getsizeof(total))
