@@ -33,10 +33,13 @@ total = get_mass('subtotal1_ptl_'+first+'_'+second+'.hdf5')
 print(sys.getsizeof(total))
 sf = get_mass('subtotal1_ptl_'+third+'_'+fourth+'.hdf5')
 total = np.add(total,sf,dtype=np.float32)
+del sf
 sf = get_mass('subtotal1_ptl_'+fifth+'_'+sixth+'.hdf5')
 total = np.add(total,sf, dtype=np.float32)
+del sf
 sf = get_mass('subtotal1_ptl_'+seventh+'_'+eighth+'.hdf5')
 total = np.add(total,sf,dtype=np.float32)
+del sf
 print('finished adding, new file:')
 print(sys.getsizeof(total))
 w = hp.File('subtotal2_ptl_'+process+'.hdf5','w')
