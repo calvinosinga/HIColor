@@ -1,4 +1,10 @@
 """
+Combine.py takes any four files (their filenames are given through command line) and combines
+their respective fields. The run arg determines whether to use the subhalo or particle implementation.
+
+this as compared to combine_fields.py which is currently just for ptl fields
+
+
 todo
 
 create code that finds the needed filename based on cml arguments

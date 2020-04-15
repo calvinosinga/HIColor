@@ -7,7 +7,7 @@ import sys
 ########## INPUTS #################
 grid = (2048,2048,2048)
 chunk = sys.argv[1]
-snapshot = 99
+snapshot = sys.argv[2]
 BOXSIZE = 75 #Mpc/h
 ###################################
 

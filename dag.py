@@ -1,6 +1,10 @@
 """
+This creates the dag file that I will use to run and distribute the workflow of the project.
+
+
 todo:
 add Diemer analysis
+adjust subhalo part for the fact I'm now doing a field-by-field basis
 change VARS to filenames
 add throttling thing
 add output filename

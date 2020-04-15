@@ -1,9 +1,9 @@
 """
 todo
-
+split into more parts -> field by field basis
 handle missing files
 handle missing keys -> happens on jupyterlab version as well
-
+figure out how to see how that propagates when combining the fields
 """
 import numpy as np
 import h5py as hp
@@ -11,9 +11,10 @@ import sys
 ########## INPUTS #################
 grid = (2048,2048,2048)
 CHUNK = sys.argv[1]
+RUN = sys.argv[2]
 LUM_MIN, LUM_THRESH = -16, -20 #detection minimum and threshold for breaking into dim/bright bins, from Swanson
 SNAPSHOT = 99
-
+# RUN can be 'blue','red'
 BOXSIZE = 75 #Mpc/h
 def isred(gr, rband):#color definition as given in Swanson
     return gr> .9 - .03*(rband+23)
@@ -25,13 +26,11 @@ except IOError:
 else:
 
     has_key = True
-    blue = np.zeros(grid)
-    dim = np.zeros(grid)
-    bright = np.zeros(grid)
-    nondet = np.zeros(grid)
-    red = np.zeros(grid)
-    color = []
-    magnitude = []
+    if RUN=='color' or RUN=='magnitude':
+        field = []
+    else:
+        field = np.zeros(grid, dtype=np.float32)
+    
     try:
         pos = f['Subhalo']['SubhaloCM']
         mass = f['Subhalo']['SubhaloMass']
@@ -45,31 +44,26 @@ else:
         for j,b in enumerate(bins):
             rmag = photo[j][5]
             gmag = photo[j][4]
-            color.append(gmag-rmag)
-            magnitude.append(rmag)
-            
-            if rmag<=LUM_MIN:
-                # if rmag is significant enough to be observed by (Swanson et al), include it in blue/red
-                if isred(gmag-rmag,rmag):
-                    red[b[0],b[1],b[2]]+= mass[j]
-                else:
-                    blue[b[0],b[1],b[2]] += mass[j]
+            if RUN=='color':
+                field.append(gmag-rmag)
+            elif RUN=='magnitude':
+                field.append(rmag)
+            elif RUN=='red':
+                if rmag<=LUM_MIN and isred(gmag-rmag,rmag):
+                    field[b[0],b[1],b[2]]+= mass[j]
+            elif RUN=='blue':
+                if rmag<=LUM_MIN and not isred(gmag-rmag,rmag):
+                    field[b[0],b[1],b[2]]+= mass[j]
+            elif RUN=='dim':
+                if rmag<=LUM_MIN and not rmag<=LUM_THRESH:
+                    field[b[0],b[1],b[2]]+= mass[j]
+            elif RUN=='bright':
                 if rmag<=LUM_THRESH:
-                    bright[b[0],b[1],b[2]] += mass[j]
-                else:
-                    dim[b[0],b[1],b[2]] += mass[j]
-            else:
-                nondet[b[0],b[1],b[2]] += mass[j]
-        
-
-            
-    w = hp.File('subhalo_'+str(SNAPSHOT)+'_'+str(CHUNK)+'.hdf5', 'w')
-    w.create_dataset("red",data=red)
-    w.create_dataset("blue",data=blue)
-    w.create_dataset("nondetection",data=nondet)
-    w.create_dataset("bright", data=bright)
-    w.create_dataset("dim", data=dim)
-    w.create_dataset("magnitude", data=magnitude)
-    w.create_dataset("color", data=color)
+                    field[b[0],b[1],b[2]]+= mass[j]
+            elif RUN=='nondetection':
+                if not rmag<=LUM_MIN:
+                    field[b[0],b[1],b[2]]+= mass[j]     
+    w = hp.File('subhalo_'+str(CHUNK)+'_'+RUN+'.hdf5', 'w')
+    w.create_dataset(RUN,data=field)
     
         
