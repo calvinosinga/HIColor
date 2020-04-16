@@ -26,20 +26,20 @@ def get_mass(path):
             print('correctly found the mass')
             return mass
 
-total = get_mass('subtotal3_ptl_'+first+'.hdf5')
+total = get_mass('subtotal4_ptl_'+first+'.hdf5')
 print(sys.getsizeof(total))
-sf = get_mass('subtotal3_ptl_'+second+'.hdf5')
+sf = get_mass('subtotal4_ptl_'+second+'.hdf5')
 total = np.add(total,sf,dtype=np.float32)
 del sf
-sf = get_mass('subtotal3_ptl_'+third+'.hdf5')
+sf = get_mass('subtotal4_ptl_'+third+'.hdf5')
 total = np.add(total,sf, dtype=np.float32)
 del sf
-sf = get_mass('subtotal3_ptl_'+fourth+'.hdf5')
+sf = get_mass('subtotal3_ptl_13.hdf5')
 total = np.add(total,sf,dtype=np.float32)
 del sf
 print('finished adding, new file:')
 print(sys.getsizeof(total))
-w = hp.File('subtotal4_ptl_'+process+'.hdf5','w')
+w = hp.File('final_ptl_'+process+'.hdf5','w')
 w.create_dataset("mass",data=total)
 
 #is this working
