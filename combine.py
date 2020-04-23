@@ -10,6 +10,7 @@ todo
 create code that finds the needed filename based on cml arguments
 handle empty files
 handle IOError
+change to handle mag/color not ptl/subhalo
 
 """
 
@@ -22,7 +23,7 @@ second = sys.argv[3]
 third = sys.argv[4]
 fourth = sys.argv[5]
 output = sys.argv[6]
-#the run arg will determine whether or not we want the ptl implementation or the subhalo implementation
+#the run arg will determine whether or not we want the field, or color/mag implementation
 #first, second, third, fourth are the filenames for the fields that we want to combine.
 #output will give the output filename.
 grid = (2048,2048,2048)
@@ -57,39 +58,39 @@ def get_field(key,path):
             return []
         else:
             return field
-if run == 'ptl':
-    total = get_mass("mass",first)
-    m = get_mass("mass",second)
-    total=np.add(total,m)
-    m = get_mass("mass",third)
-    total=np.add(total,m)
-    m = get_mass("mass",fourth)
-    total = np.add(total,m)
-    w = hp.File(output,'w')
-    w.create_dataset("mass",data=total)
 
-if run == 'subhalo':
-    keys = ['red','blue','dim','bright','nondetection']
-    ls = ['magnitude','color']
-    w.hp.File(output, 'w')
-    for k in keys:
-        total = get_mass(k,first)
-        m = get_mass(k,second)
-        total = np.add(total,m)
-        m = get_mass(k,third)
-        total = np.add(total, m)
-        m = get_mass(k,fourth)
-        total = np.add(total,m)
-        w.create_dataset(k,data=total)
-    for l in ls:
-        total = get_field(l,first)
-        m = get_field(l,second)
-        total.extend(m)
-        m = get_field(l,third)
-        total.extend(m)
-        m=get_field(l,fourth)
-        total.extend(m)
-        w.create_dataset(l,data=total)
+total = get_mass(run,first)
+m = get_mass(run,second)
+total=np.add(total,m)
+m = get_mass(run,third)
+total=np.add(total,m)
+m = get_mass(run,fourth)
+total = np.add(total,m)
+w = hp.File(output,'w')
+w.create_dataset(run,data=total)
+
+# if run == 'subhalo':
+#     keys = ['red','blue','dim','bright','nondetection']
+#     ls = ['magnitude','color']
+#     w.hp.File(output, 'w')
+#     for k in keys:
+#         total = get_mass(k,first)
+#         m = get_mass(k,second)
+#         total = np.add(total,m)
+#         m = get_mass(k,third)
+#         total = np.add(total, m)
+#         m = get_mass(k,fourth)
+#         total = np.add(total,m)
+#         w.create_dataset(k,data=total)
+#     for l in ls:
+#         total = get_field(l,first)
+#         m = get_field(l,second)
+#         total.extend(m)
+#         m = get_field(l,third)
+#         total.extend(m)
+#         m=get_field(l,fourth)
+#         total.extend(m)
+#         w.create_dataset(l,data=total)
     
 
         

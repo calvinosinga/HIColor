@@ -1,0 +1,14 @@
+universe = vanilla
+executable = combine.sh
+log = combine$(chunk).log
+error = combine$(chunk).err
+output=combine$(chunk).out
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+Requirements = (Target.HasCHTCStaging == true)
+arguments = $(run) $(file0) $(file1) $(file2) $(file3) $(output)
+transfer_input_files = http://proxy.chtc.wisc.edu/SQUID/chtc/python27.tar.gz, packages.tar.gz, HIColor/combine.py
+request_cpus =1
+request_memory = 110GB
+request_disk = 180GB
+queue
