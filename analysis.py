@@ -13,7 +13,5 @@ field= np.divide(field,avg); field = np.add(field,-1)
 pk = Pk(field,BOXSIZE, axis = 0, MAS='CIC')
 tpk = np.transpose([pk.k3D, pk.Pk[:,0]])
 np.savetxt("mass_pk.txt",tpk)
-print(pk.Nmodes1D)
-print(pk.k1D)
-print(pk.Pk1D)
+
 
