@@ -31,7 +31,6 @@ grid = (2048,2048,2048)
 def get_mass(key,path):
     try:
         f=hp.File(path,'r')
-        print()
     except IOError:
         print('files not found')
         return np.zeros(grid)
@@ -46,7 +45,6 @@ def get_mass(key,path):
 def get_field(key,path):
     try:
         f=hp.File(path,'r')
-        print()
     except IOError:
         print('files not found')
         return []
@@ -58,16 +56,46 @@ def get_field(key,path):
             return []
         else:
             return field
+if run == 'magnitude' or run == 'color':
+    """
+    Since these are lists rather than np arrays
+    """
+    total = get_field(run,first)
+    
+    m = get_field(run,second)
+    
+    total.extend(m)
+    m = get_field(run,third)
+    total.extend(m)
+    m = get_field(run,fourth)
+    total.extend(m)
+    w = hp.File(output,'w')
+    w.create_dataset(run,data=total)
+else:
+    total = get_mass(run,first)
+    sum1 = np.sum(total)
+    print('first field:' + str(sum1))
+    m = get_mass(run,second)
+    sum2 =np.sum(m)
+    print('second field:' + str(sum2))
+    total=np.add(total,m)
+    tot1 = np.sum(total)
+    print('first sum should be' + str(sum1+sum2)+', is: ' +str(tot1))
 
-total = get_mass(run,first)
-m = get_mass(run,second)
-total=np.add(total,m)
-m = get_mass(run,third)
-total=np.add(total,m)
-m = get_mass(run,fourth)
-total = np.add(total,m)
-w = hp.File(output,'w')
-w.create_dataset(run,data=total)
+    m = get_mass(run,third)
+    sum3 = np.sum(m)
+    print('third field:' + str(sum3))
+    total=np.add(total,m)
+    tot2=np.sum(total)
+    print('second sum should be' + str(tot1+sum3)+', is: ' +str(tot2))
+    m = get_mass(run,fourth)
+    sum4=np.sum(m)
+    print('third field:' + str(sum4))
+    total = np.add(total,m)
+    tot3 = np.sum(total)
+    print('last sum should be '+str(tot2+sum4)+', is: '+ str(tot3))
+    w = hp.File(output,'w')
+    w.create_dataset(run,data=total)
 
 # if run == 'subhalo':
 #     keys = ['red','blue','dim','bright','nondetection']

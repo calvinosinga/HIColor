@@ -19,9 +19,8 @@ header = dict(f['Header'].attrs)
 BOXSIZE = header['BoxSize'] #kpc/h
 dkptl = header['MassTable'][1]
 nptl = header['NumPart_ThisFile']
-edges = np.linspace(0,BOXSIZE*1000, grid[0])
+edges = np.linspace(0,BOXSIZE, grid[0])
 total = np.zeros(grid, dtype=np.float32)
-print(nptl)
 ptlcount = np.zeros(6)
 
 def add_field(file,key,field):
@@ -30,12 +29,16 @@ def add_field(file,key,field):
     """
     mass=f[key]["Masses"]
     pos = f[key]["Coordinates"]
+    print('mass for '+str(k)+': '+str(np.sum(mass)))
+    print('current running total: '+str(np.sum(field)))
+    print('so the new total should be '+ str(np.sum(mass)+np.sum(field)))
     bins = np.digitize(pos,edges)
     for ptl,b in enumerate(bins):
         field[b[0],b[1],b[2]]+=mass[ptl]
+    print('the new total is: '+str(np.sum(field))+'\n')
+
     return field
-        
-        
+    
       
 for k in keys:
     if k=="PartType0":
@@ -43,17 +46,21 @@ for k in keys:
         total = add_field(f,k,total)
     elif k=="PartType1":
         ptlcount[1]+=1
+        print('mass for '+str(k)+': '+str(np.sum(mass)))
+        print('current running total: '+str(np.sum(total)))
+        print('so the new total should be '+ str(np.sum(mass)+np.sum(total)))
         pos = f[k]['Coordinates']
         bins = np.digitize(pos,edges)
         for ptl,b in enumerate(bins):
             total[b[0],b[1],b[2]]+=dkptl
+        print('the new total is: '+str(np.sum(total))+'\n')
     elif k=="PartType4":
         ptlcount[4]+=1
         total = add_field(f,k,total)
     elif k=="PartType5":
         ptlcount[5]+=1
         total = add_field(f,k,total)
-    
+print(nptl) 
 print(ptlcount)
 w = hp.File('ptl_'+str(snapshot)+'_'+str(chunk)+'.hdf5', 'w')
 w.create_dataset("mass", data=total)

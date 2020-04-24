@@ -13,9 +13,9 @@ grid = (2048,2048,2048)
 CHUNK = sys.argv[1]
 RUN = sys.argv[2]
 LUM_MIN, LUM_THRESH = -16, -20 #detection minimum and threshold for breaking into dim/bright bins, from Swanson
-SNAPSHOT = 99
+SNAPSHOT = sys.argv[3]
 # RUN can be 'blue','red'
-BOXSIZE = 75 #Mpc/h
+BOXSIZE = 75000 #kpc/h
 def isred(gr, rband):#color definition as given in Swanson
     return gr> .9 - .03*(rband+23)
 ###################################
@@ -39,7 +39,7 @@ else:
         print('chunk was empty')
         has_key=False
     if has_key:
-        edges = np.linspace(0,BOXSIZE*1000, grid[0]) #definitions of bins
+        edges = np.linspace(0,BOXSIZE, grid[0]) #definitions of bins
         bins = np.digitize(pos,edges)
         for j,b in enumerate(bins):
             rmag = photo[j][5]
@@ -63,7 +63,7 @@ else:
             elif RUN=='nondetection':
                 if not rmag<=LUM_MIN:
                     field[b[0],b[1],b[2]]+= mass[j]     
-    w = hp.File('subhalo_'+str(CHUNK)+'_'+RUN+'.hdf5', 'w')
+    w = hp.File(RUN+str(CHUNK)+'.hdf5', 'w')
     w.create_dataset(RUN,data=field)
     
         

@@ -1,6 +1,7 @@
 universe = vanilla
 log = ptl$(chunk).log
 error = ptl$(chunk).error
+output= ptl$(chunk).out
 executable = ptl.sh
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
