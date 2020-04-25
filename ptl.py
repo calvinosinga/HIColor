@@ -46,10 +46,11 @@ for k in keys:
         total = add_field(f,k,total)
     elif k=="PartType1":
         ptlcount[1]+=1
-        print('mass for '+str(k)+': '+str(np.sum(mass)))
-        print('current running total: '+str(np.sum(total)))
-        print('so the new total should be '+ str(np.sum(mass)+np.sum(total)))
+        
         pos = f[k]['Coordinates']
+        print('mass for '+str(k)+': '+str(len(pos)*dkptl))
+        print('current running total: '+str(np.sum(total)))
+        print('so the new total should be '+ str(len(pos)*dkptl+np.sum(total)))
         bins = np.digitize(pos,edges)
         for ptl,b in enumerate(bins):
             total[b[0],b[1],b[2]]+=dkptl
