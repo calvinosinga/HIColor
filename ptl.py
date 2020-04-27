@@ -27,6 +27,7 @@ def add_field(file,key,field):
     """
     Just a quick helper method. Adds corresponding mass field to running total.
     """
+    count = 0
     mass=f[key]["Masses"]
     pos = f[key]["Coordinates"]
     print('mass for '+str(k)+': '+str(np.sum(mass)))
@@ -35,17 +36,16 @@ def add_field(file,key,field):
     bins = np.digitize(pos,edges)
     for ptl,b in enumerate(bins):
         field[b[0],b[1],b[2]]+=mass[ptl]
+        count += 1
     print('the new total is: '+str(np.sum(field))+'\n')
 
-    return field
+    return field, count
     
       
 for k in keys:
     if k=="PartType0":
-        ptlcount[0]+=1
-        total = add_field(f,k,total)
+        total, ptlcount[0] = add_field(f,k,total)
     elif k=="PartType1":
-        ptlcount[1]+=1
         
         pos = f[k]['Coordinates']
         print('mass for '+str(k)+': '+str(len(pos)*dkptl))
@@ -54,13 +54,12 @@ for k in keys:
         bins = np.digitize(pos,edges)
         for ptl,b in enumerate(bins):
             total[b[0],b[1],b[2]]+=dkptl
+            ptlcount[1]+=1
         print('the new total is: '+str(np.sum(total))+'\n')
     elif k=="PartType4":
-        ptlcount[4]+=1
-        total = add_field(f,k,total)
+        total,ptlcount[4] = add_field(f,k,total)
     elif k=="PartType5":
-        ptlcount[5]+=1
-        total = add_field(f,k,total)
+        total,ptlcount[5] = add_field(f,k,total)
 print(nptl) 
 print(ptlcount)
 w = hp.File('ptl_'+str(snapshot)+'_'+str(chunk)+'.hdf5', 'w')

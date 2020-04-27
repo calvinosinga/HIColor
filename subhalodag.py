@@ -19,7 +19,7 @@ def parch(parents,children):
     f.write("CHILD ")
     for c in children:
         f.write(str(c)+" ")
-    f.write("/n")
+    f.write("\n")
 
 runs = ["bright","dim","nondetection", "red","blue", "magnitude", "color"]
 n = 448
@@ -33,37 +33,37 @@ for r in runs:
         varvals = [r]
         pars = []
         for j in range(4):
-            pars.append(r+str(j))
-            varvals.append(r+str(j)+".hdf5")
+            pars.append(r+str(4*i+j))
+            varvals.append(r+str(4*i+j)+".hdf5")
         varvals.append(r+str(i)+"_combine0.hdf5")
         job(r+str(i)+"_combine0",varnames,varvals)
-        parch(pars,r+str(i)+"_combine0")
+        parch(pars,[r+str(i)+"_combine0"])
     for i in range(int(n/16)):
         varvals = [r]
         pars = []
         for j in range(4):
-            pars.append(r+str(j))
-            varvals.append(r+str(j)+"_combine0.hdf5")
+            pars.append(r+str(4*i+j)+"_combine0")
+            varvals.append(r+str(4*i+j)+"_combine0.hdf5")
         varvals.append(r+str(i)+"_combine1.hdf5")
         job(r+str(i)+"_combine1",varnames,varvals)
-        parch(pars,r+str(i)+"_combine1")
+        parch(pars,[r+str(i)+"_combine1"])
     for i in range(int(n/64)):
         varvals = [r]
         pars = []
         for j in range(4):
-            pars.append(r+str(j))
-            varvals.append(r+str(j)+"_combine1.hdf5")
+            pars.append(r+str(4*i+j)+"_combine1")
+            varvals.append(r+str(4*i+j)+"_combine1.hdf5")
         varvals.append(r+str(i)+"_combine2.hdf5")
         job(r+str(i)+"_combine2",varnames,varvals)
-        parch(pars,r+str(i)+"_combine2")
+        parch(pars,[r+str(i)+"_combine2"])
     varvals = [r]
     pars = []
     for j in range(4):
-        pars.append(r+str(j))
+        pars.append(r+str(j)+"_combine2")
         varvals.append(r+str(j)+"_combine2.hdf5")
     varvals.append(r+"_combine3.hdf5")
     job(r+"_combine3",varnames,varvals)
-    parch(pars,r+"_combine3")
+    parch(pars,[r+"_combine3"])
 
     varvals = [r]
     pars = []
@@ -72,5 +72,6 @@ for r in runs:
         varvals.append(r+str(4+j)+"_combine2.hdf5")
     varvals.append(r+"_combine3.hdf5")
     varvals.append(r+"_final.hdf5")
+    pars.append(r+"_combine3")
     job(r+"_final",varnames,varvals)
-    parch(pars,r+"_final")
+    parch(pars,[r+"_final"])

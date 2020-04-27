@@ -33,15 +33,16 @@ def get_mass(key,path):
         f=hp.File(path,'r')
     except IOError:
         print('files not found')
-        return np.zeros(grid)
+        return np.zeros(grid, dtype=np.float32)
     else:
         try:
             mass = f[key]
         except KeyError:
             print(key+' field not found - creating substitute')
-            return np.zeros(grid)
+            return np.zeros(grid, dtype=np.float32)
         else:
             return mass
+
 def get_field(key,path):
     try:
         f=hp.File(path,'r')
@@ -87,13 +88,13 @@ else:
     print('third field:' + str(sum3))
     total=np.add(total,m)
     tot2=np.sum(total)
-    print('second sum should be' + str(tot1+sum3)+', is: ' +str(tot2))
+    print('second sum should be' + str(sum1+sum2+sum3)+', is: ' +str(tot2))
     m = get_mass(run,fourth)
     sum4=np.sum(m)
     print('third field:' + str(sum4))
     total = np.add(total,m)
     tot3 = np.sum(total)
-    print('last sum should be '+str(tot2+sum4)+', is: '+ str(tot3))
+    print('last sum should be '+str(sum1+sum2+sum3+sum4)+', is: '+ str(tot3))
     w = hp.File(output,'w')
     w.create_dataset(run,data=total)
 

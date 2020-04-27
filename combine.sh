@@ -1,15 +1,14 @@
 #!/bin/bash
-
 tar -xzf python27.tar.gz
 tar -xzf packages.tar.gz
 export PATH=$PWD/python/bin:$PATH
 export PYTHONPATH=$PWD/packages
 export HOME=$PWD
 
-cp /staging/cosinga/output/$2.gz ./
-cp /staging/cosinga/output/$3.gz ./
-cp /staging/cosinga/output/$4.gz ./
-cp /staging/cosinga/output/$5.gz ./
+mv /staging/cosinga/output/$2.gz ./
+mv /staging/cosinga/output/$3.gz ./
+mv /staging/cosinga/output/$4.gz ./
+mv /staging/cosinga/output/$5.gz ./
 
 gunzip $2.gz
 gunzip $3.gz
