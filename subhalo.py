@@ -4,6 +4,7 @@ split into more parts -> field by field basis
 handle missing files
 handle missing keys -> happens on jupyterlab version as well
 figure out how to see how that propagates when combining the fields
+removing dim/bright runs, just color.
 """
 import numpy as np
 import h5py as hp
@@ -12,7 +13,7 @@ import sys
 grid = (2048,2048,2048)
 CHUNK = sys.argv[1]
 RUN = sys.argv[2]
-LUM_MIN, LUM_THRESH = -16, -20 #detection minimum and threshold for breaking into dim/bright bins, from Swanson
+LUM_MIN = -16 #detection minimum from Swanson
 SNAPSHOT = sys.argv[3]
 # RUN can be 'blue','red'
 BOXSIZE = 75000 #kpc/h
@@ -26,8 +27,6 @@ except IOError:
 else:
 
     has_key = True
-    if RUN=='color' or RUN=='magnitude':
-        field = []
     else:
         field = np.zeros(grid, dtype=np.float32)
     
@@ -44,21 +43,11 @@ else:
         for j,b in enumerate(bins):
             rmag = photo[j][5]
             gmag = photo[j][4]
-            if RUN=='color':
-                field.append(gmag-rmag)
-            elif RUN=='magnitude':
-                field.append(rmag)
             elif RUN=='red':
                 if rmag<=LUM_MIN and isred(gmag-rmag,rmag):
                     field[b[0],b[1],b[2]]+= mass[j]
             elif RUN=='blue':
                 if rmag<=LUM_MIN and not isred(gmag-rmag,rmag):
-                    field[b[0],b[1],b[2]]+= mass[j]
-            elif RUN=='dim':
-                if rmag<=LUM_MIN and not rmag<=LUM_THRESH:
-                    field[b[0],b[1],b[2]]+= mass[j]
-            elif RUN=='bright':
-                if rmag<=LUM_THRESH:
                     field[b[0],b[1],b[2]]+= mass[j]
             elif RUN=='nondetection':
                 if not rmag<=LUM_MIN:

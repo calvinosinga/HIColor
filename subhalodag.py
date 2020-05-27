@@ -21,7 +21,7 @@ def parch(parents,children):
         f.write(str(c)+" ")
     f.write("\n")
 
-runs = ["bright","dim","nondetection", "red","blue", "magnitude", "color"]
+runs = ["nondetection", "red","blue"]
 n = 448
 for r in runs:
     varnames = ["chunk","run","ss"]

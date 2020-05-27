@@ -86,6 +86,7 @@ variab.append('file0=\"ptlcombine3_99.hdf5\"')
 variab.append('file1=\"ptlcombine2_99_4.hdf5\"')
 variab.append('file2=\"ptlcombine2_99_5.hdf5\"')
 variab.append('file3=\"ptlcombine2_99_6.hdf5\"')
+variab.append('output=\"mass_final.hdf5\"')
 f.write(str('JOB '+name+' combine.sub\n'))
 for v in variab:
     f.write(str('VARS '+name+' '+v+'\n'))
