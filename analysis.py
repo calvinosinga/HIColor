@@ -14,7 +14,7 @@ avg = np.mean(field)
 field = np.divide(field,avg); field = np.add(field,-1)
 pk = Pk(field,BOXSIZE, axis = 0, MAS='CIC') #need to change the mass assignment scheme -> digital?
 tpk = np.transpose([pk.k3D, pk.Pk[:,0]])
-np.savetxt(savename)
+np.savetxt(savename,tpk)
 
 # f = hp.File('final_ptl_0.hdf5', 'r')
 # field = f["mass"][:]*1e10 #converting to solar masses/h
