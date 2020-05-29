@@ -27,8 +27,7 @@ except IOError:
 else:
 
     has_key = True
-    else:
-        field = np.zeros(grid, dtype=np.float32)
+    field = np.zeros(grid, dtype=np.float32)
     
     try:
         pos = f['Subhalo']['SubhaloCM']
@@ -43,7 +42,7 @@ else:
         for j,b in enumerate(bins):
             rmag = photo[j][5]
             gmag = photo[j][4]
-            elif RUN=='red':
+            if RUN=='red':
                 if rmag<=LUM_MIN and isred(gmag-rmag,rmag):
                     field[b[0],b[1],b[2]]+= mass[j]
             elif RUN=='blue':

@@ -68,9 +68,9 @@ name = 'PTLCOMBINE3'
 variab = ['run=\"mass\"']
 parent = 'PARENT'
 for j in range(4):
-    variab.append('file'+str(j)+'=\"ptlcombine2_'+ss+'_'+str(j)+'.hdf5')
+    variab.append('file'+str(j)+'=\"ptlcombine2_'+ss+'_'+str(j)+'.hdf5\"')
     parent += ' PTLCOMBINE2_'+str(j)
-variab.append('output=\"ptlcombine3_'+ss+'.hdf5')
+variab.append('output=\"ptlcombine3_'+ss+'.hdf5\"')
 f.write(str('JOB '+name+' combine.sub\n'))
 # f.write(str(variab+'\n'))
 for v in variab:
