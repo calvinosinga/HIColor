@@ -11,12 +11,14 @@ snapshot = sys.argv[2]
 # BOXSIZE = 75 #Mpc/h
 ###################################
 
-  
-
-f= hp.File("snap_0"+str(snapshot)+'.'+str(chunk)+".hdf5",'r')
+flags= np.zeros(3,dtype=np.int32)
+try:
+    f= hp.File("snap_0"+str(snapshot)+'.'+str(chunk)+".hdf5",'r')
+except IOError:
+    flags[0]=1 
 keys = list(f.keys())
 header = dict(f['Header'].attrs)
-BOXSIZE = header['BoxSize'] #kpc/h
+BOXSIZE = 0.001*header['BoxSize'] #Mpc/h
 dkptl = header['MassTable'][1]
 nptl = header['NumPart_ThisFile']
 edges = np.linspace(0,BOXSIZE, grid[0])
@@ -28,16 +30,23 @@ def add_field(file,key,field):
     Just a quick helper method. Adds corresponding mass field to running total.
     """
     count = 0
-    mass=f[key]["Masses"]
-    pos = f[key]["Coordinates"]
-    print('mass for '+str(k)+': '+str(np.sum(mass)))
-    print('current running total: '+str(np.sum(field)))
-    print('so the new total should be '+ str(np.sum(mass)+np.sum(field)))
-    bins = np.digitize(pos,edges)
-    for ptl,b in enumerate(bins):
-        field[b[0],b[1],b[2]]+=mass[ptl]
-        count += 1
-    print('the new total is: '+str(np.sum(field))+'\n')
+    has_key = True
+    try:
+        mass=f[key]["Masses"]
+        pos = 0.001*f[key]["Coordinates"][:] #Mpc/h
+    except KeyError:
+        has_key=False
+        flags[1] = 1
+
+    if has_key:
+        print('mass for '+str(k)+': '+str(np.sum(mass)))
+        print('current running total: '+str(np.sum(field)))
+        print('so the new total should be '+ str(np.sum(mass)+np.sum(field)))
+        bins = np.digitize(pos,edges)
+        for ptl,b in enumerate(bins):
+            field[b[0],b[1],b[2]]+=mass[ptl]
+            count += 1
+        print('the new total is: '+str(np.sum(field))+'\n')
 
     return field, count
     
@@ -60,7 +69,8 @@ for k in keys:
         total,ptlcount[4] = add_field(f,k,total)
     elif k=="PartType5":
         total,ptlcount[5] = add_field(f,k,total)
-print(nptl) 
-print(ptlcount)
+if not nptl == ptlcount:
+    flags[2]=1
 w = hp.File('ptl_'+str(snapshot)+'_'+str(chunk)+'.hdf5', 'w')
 w.create_dataset("mass", data=total)
+w.create_dataset("flags", data=flags)

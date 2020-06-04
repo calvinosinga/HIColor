@@ -16,25 +16,28 @@ RUN = sys.argv[2]
 LUM_MIN = -16 #detection minimum from Swanson
 SNAPSHOT = sys.argv[3]
 # RUN can be 'blue','red'
-BOXSIZE = 75000 #kpc/h
+BOXSIZE = 75 #Mpc/h
 def isred(gr, rband):#color definition as given in Swanson
     return gr> .9 - .03*(rband+23)
 ###################################
+
+flags = np.zeros(2, dtype=np.int32)
 try:
     f = hp.File('fof_subhalo_tab_0'+str(SNAPSHOT)+'.'+str(CHUNK)+'.hdf5','r')
 except IOError:
-    print('failed to open file')
+    err='failed to open file for ' + str(CHUNK)
+    print(err)
+    flags[0]=1
 else:
-
     has_key = True
     field = np.zeros(grid, dtype=np.float32)
-    
     try:
         pos = f['Subhalo']['SubhaloCM']
         mass = f['Subhalo']['SubhaloMass']
         photo = f['Subhalo']['SubhaloStellarPhotometrics']
     except KeyError:
-        print('chunk was empty')
+        err='chunk '+str(CHUNK)+ '\'s subhalo data was empty'
+        flags[1]=1
         has_key=False
     if has_key:
         edges = np.linspace(0,BOXSIZE, grid[0]) #definitions of bins
@@ -52,6 +55,7 @@ else:
                 if not rmag<=LUM_MIN:
                     field[b[0],b[1],b[2]]+= mass[j]     
     w = hp.File(RUN+str(CHUNK)+'.hdf5', 'w')
-    w.create_dataset(RUN,data=field)
+    w.create_dataset(RUN,data=field)   
+    w.create_dataset('flags',data=flags)
     
         
