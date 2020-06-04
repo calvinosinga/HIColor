@@ -1,5 +1,5 @@
 universe = vanilla
-executable = hi_$(Process).sh
+executable = hi.sh
 log = hi_$(Process).log
 output = hi_$(Process).out
 error = hi_$(Process).err
