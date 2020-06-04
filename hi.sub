@@ -1,0 +1,14 @@
+universe = vanilla
+executable = hi_$(Process).sh
+log = hi_$(Process).log
+output = hi_$(Process).out
+error = hi_$(Process).err
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+Requirements = (Target.HasCHTCStaging == true)
+arguments = hih2_galaxy_099.hdf5 id_pos99.hdf5 $(Process)
+transfer_input_files = http://proxy.chtc.wisc.edu/SQUID/chtc/python27.tar.gz, packages.tar.gz, HIColor/hi.py
+request_cpus = 1
+request_memory = 45GB
+request_disk = 40GB
+queue 9
