@@ -16,7 +16,7 @@ for i in range(n):
     for v in variab:
         f.write(str('VARS '+name+' '+v+'\n'))
     # f.write(str('VARS '+name+' chunk=\"'+str(i)+'\" ss=\"'+ss+'\"\n'))
-# output file names -> ptl_[snapshot]_[chunk].hdf5
+# result file names -> ptl_[snapshot]_[chunk].hdf5
 
 for i in range(int(n/4)): #112
     name = 'PTLCOMBINE0_'+str(i)
@@ -26,14 +26,14 @@ for i in range(int(n/4)): #112
     for j in range(4):
         variab.append('file'+str(j)+'=\"ptl_'+ss+'_'+str(4*i+j)+'.hdf5\"')
         parent += ' PTL_'+str(j+4*i)
-    variab.append('output=\"ptlcombine0_'+ss+'_'+str(i)+'.hdf5\"')
+    variab.append('result=\"ptlcombine0_'+ss+'_'+str(i)+'.hdf5\"')
     f.write(str('JOB '+name+' combine.sub\n'))
     # f.write(str(variab))
     for v in variab:
         f.write(str('VARS '+name+' '+v+'\n'))
     f.write(str(parent+ ' CHILD '+name+'\n'))
 
-# output file names -> ptlcombine0_[snapshot]_[process].hdf5
+# result file names -> ptlcombine0_[snapshot]_[process].hdf5
 for i in range(int(n/16)):#28
     name = 'PTLCOMBINE1_'+str(i)
 #    variab = 'VARS ' + name + ' run=\"mass\"'
@@ -42,13 +42,13 @@ for i in range(int(n/16)):#28
     for j in range(4):
         variab.append('file'+str(j)+'=\"ptlcombine0_'+ss+'_'+str(4*i+j)+'.hdf5\"')
         parent += ' PTLCOMBINE0_'+str(j+4*i)
-    variab.append('output=\"ptlcombine1_'+ss+'_'+str(i)+'.hdf5\"\n')
+    variab.append('result=\"ptlcombine1_'+ss+'_'+str(i)+'.hdf5\"\n')
     f.write(str('JOB '+name+' combine.sub\n'))
     for v in variab:
         f.write(str('VARS '+name+' '+v+'\n'))
  #   f.write(str(variab))
     f.write(str(parent+ ' CHILD '+name+'\n'))
-# output file names -> ptlcombine1_[snapshot]_[process].hdf5
+# result file names -> ptlcombine1_[snapshot]_[process].hdf5
 for i in range(int(n/16/4)):#7
     name = 'PTLCOMBINE2_'+str(i)
   #  variab = 'VARS ' + name + ' run=\"mass\"'
@@ -57,7 +57,7 @@ for i in range(int(n/16/4)):#7
     for j in range(4):
         variab.append('file'+str(j)+'=\"ptlcombine1_'+ss+'_'+str(4*i+j)+'.hdf5\"')
         parent += ' PTLCOMBINE1_'+str(j+4*i)
-    variab.append('output=\"ptlcombine2_'+ss+'_'+str(i)+'.hdf5\"')
+    variab.append('result=\"ptlcombine2_'+ss+'_'+str(i)+'.hdf5\"')
     f.write(str('JOB '+name+' combine.sub\n'))
  #   f.write(str(variab))
     for v in variab:
@@ -70,13 +70,13 @@ parent = 'PARENT'
 for j in range(4):
     variab.append('file'+str(j)+'=\"ptlcombine2_'+ss+'_'+str(j)+'.hdf5\"')
     parent += ' PTLCOMBINE2_'+str(j)
-variab.append('output=\"ptlcombine3_'+ss+'.hdf5\"')
+variab.append('result=\"ptlcombine3_'+ss+'.hdf5\"')
 f.write(str('JOB '+name+' combine.sub\n'))
 # f.write(str(variab+'\n'))
 for v in variab:
     f.write(str('VARS '+name+' '+v+'\n'))
 f.write(str(parent+ ' CHILD '+name+'\n'))
-# output -> ptlcombine3_99.hdf5
+# result -> ptlcombine3_99.hdf5
 
 name= 'PTLCOMBINEFINAL'
 variab = [' run=\"mass\"']
@@ -86,7 +86,8 @@ variab.append('file0=\"ptlcombine3_99.hdf5\"')
 variab.append('file1=\"ptlcombine2_99_4.hdf5\"')
 variab.append('file2=\"ptlcombine2_99_5.hdf5\"')
 variab.append('file3=\"ptlcombine2_99_6.hdf5\"')
-variab.append('output=\"mass_final.hdf5\"')
+variab.append('result=\"mass_final.hdf5\"')
+
 f.write(str('JOB '+name+' combine.sub\n'))
 for v in variab:
     f.write(str('VARS '+name+' '+v+'\n'))

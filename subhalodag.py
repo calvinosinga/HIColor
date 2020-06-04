@@ -21,6 +21,7 @@ def parch(parents,children):
         f.write(str(c)+" ")
     f.write("\n")
 
+
 runs = ["nondetection", "red","blue"]
 n = 448
 for r in runs:
@@ -28,7 +29,7 @@ for r in runs:
     for i in range(n):
         varvals = [str(i),r,ss]
         job(r+str(i),varnames,varvals, "subhalo.sub")
-    varnames = ["run","file0","file1","file2","file3","output"]
+    varnames = ["run","file0","file1","file2","file3","result"]
     for i in range(int(n/4)):
         varvals = [r]
         pars = []
