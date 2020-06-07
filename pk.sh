@@ -11,4 +11,5 @@ gunzip $1.gz
 
 python pk.py $1 $2 $3
 
+mv $3 /staging/cosinga/output
 rm $1
