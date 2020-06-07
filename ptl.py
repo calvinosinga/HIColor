@@ -55,7 +55,6 @@ for k in keys:
     if k=="PartType0":
         total, ptlcount[0] = add_field(f,k,total)
     elif k=="PartType1":
-        
         pos = f[k]['Coordinates']
         print('mass for '+str(k)+': '+str(len(pos)*dkptl))
         print('current running total: '+str(np.sum(total)))

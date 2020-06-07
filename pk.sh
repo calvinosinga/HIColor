@@ -9,6 +9,6 @@ cp /staging/cosinga/output/$1.gz ./
 
 gunzip $1.gz
 
-python analysis.py $1 $2 $3
+python pk.py $1 $2 $3
 
 rm $1
