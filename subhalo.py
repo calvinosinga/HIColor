@@ -20,8 +20,7 @@ BOXSIZE = 75 #Mpc/h
 def isred(gr, rband):#color definition as given in Swanson
     return gr> .9 - .03*(rband+23)
 ###################################
-
-flags = np.zeros(2, dtype=np.int32)
+flags = np.zeros(3, dtype=np.int32)
 try:
     f = hp.File('fof_subhalo_tab_0'+str(SNAPSHOT)+'.'+str(CHUNK)+'.hdf5','r')
 except IOError:

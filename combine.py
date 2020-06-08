@@ -10,8 +10,6 @@ todo
 create code that finds the needed filename based on cml arguments
 handle empty files
 handle IOError
-change to handle mag/color not ptl/subhalo
-
 """
 
 import numpy as np
@@ -43,35 +41,48 @@ def get_mass(key,path):
             return np.zeros(grid, dtype=np.float32)
         else:
             return mass,flags
+if "-" in run:
+    runs = run.split("-")
+    total = np.zeros(grid)
+    totflags = np.zeros(3)
+    for r in runs:
+        field,fldflags = get_mass(r,first)
+        sum1 = np.sum(field)
+        print(r+' field:' + str(sum1))
+        total = np.add(total,field)
+        totflags = np.add(totflags,fldflags)
+    w = hp.File(result,'w')
+    w.create_dataset(run,data=total)
+    w.create_dataset("flags",data=totflags)
+else:
+    total,totflags = get_mass(run,first)
+    sum1 = np.sum(total)
+    print('first field:' + str(sum1))
+    m,fl = get_mass(run,second)
+    totflags=np.add(totflags,fl)
+    sum2 =np.sum(m)
+    print('second field:' + str(sum2))
+    total=np.add(total,m)
+    tot1 = np.sum(total)
+    print('first sum should be' + str(sum1+sum2)+', is: ' +str(tot1))
 
-total,totflags = get_mass(run,first)
-sum1 = np.sum(total)
-print('first field:' + str(sum1))
-m,fl = get_mass(run,second)
-totflags=np.add(totflags,fl)
-sum2 =np.sum(m)
-print('second field:' + str(sum2))
-total=np.add(total,m)
-tot1 = np.sum(total)
-print('first sum should be' + str(sum1+sum2)+', is: ' +str(tot1))
-
-m,fl = get_mass(run,third)
-sum3 = np.sum(m)
-totflags=np.add(totflags,fl)
-print('third field:' + str(sum3))
-total=np.add(total,m)
-tot2=np.sum(total)
-print('second sum should be' + str(sum1+sum2+sum3)+', is: ' +str(tot2))
-m,fl = get_mass(run,fourth)
-totflags=np.add(totflags,fl)
-sum4=np.sum(m)
-print('third field:' + str(sum4))
-total = np.add(total,m)
-tot3 = np.sum(total)
-print('last sum should be '+str(sum1+sum2+sum3+sum4)+', is: '+ str(tot3))
-w = hp.File(result,'w')
-w.create_dataset(run,data=total)
-w.create_dataset("flags",data=totflags)
+    m,fl = get_mass(run,third)
+    sum3 = np.sum(m)
+    totflags=np.add(totflags,fl)
+    print('third field:' + str(sum3))
+    total=np.add(total,m)
+    tot2=np.sum(total)
+    print('second sum should be' + str(sum1+sum2+sum3)+', is: ' +str(tot2))
+    m,fl = get_mass(run,fourth)
+    totflags=np.add(totflags,fl)
+    sum4=np.sum(m)
+    print('third field:' + str(sum4))
+    total = np.add(total,m)
+    tot3 = np.sum(total)
+    print('last sum should be '+str(sum1+sum2+sum3+sum4)+', is: '+ str(tot3))
+    w = hp.File(result,'w')
+    w.create_dataset(run,data=total)
+    w.create_dataset("flags",data=totflags)
 
 
 
