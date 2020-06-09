@@ -21,7 +21,8 @@ header = dict(f['Header'].attrs)
 BOXSIZE = 0.001*header['BoxSize'] #Mpc/h
 dkptl = header['MassTable'][1]
 nptl = header['NumPart_ThisFile']
-edges = np.linspace(0,BOXSIZE, grid[0])
+edges = np.linspace(0,BOXSIZE, grid[0]-1)
+
 total = np.zeros(grid, dtype=np.float32)
 ptlcount = np.zeros(6)
 

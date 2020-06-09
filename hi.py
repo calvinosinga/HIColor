@@ -18,16 +18,11 @@ for k in keys:
 k = klist[int(run)]
 hi = f[k]
 pos= np.divide(pos,1000) #converts to Mpc/h
-edges = np.linspace(0,BOXSIZE,grid[0])
+edges = np.linspace(0,BOXSIZE,grid[0]-1)
+
 bins = np.digitize(pos,edges)
 mass = np.zeros(grid)
 for subh,b in enumerate(bins):
-    if b[0]==2048:
-        b[0]=2047
-    if b[1]==2048:
-        b[1]=2047
-    if b[2]==2048:
-        b[2]=2047
     mass[b[0],b[1],b[2]]+=hi[subh]
 w = hp.File("benhi_"+run+".hdf5",'w')
 w.create_dataset("hi",data=mass)

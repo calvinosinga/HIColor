@@ -39,7 +39,7 @@ else:
         flags[1]=1
         has_key=False
     if has_key:
-        edges = np.linspace(0,BOXSIZE, grid[0]) #definitions of bins
+        edges = np.linspace(0,BOXSIZE, grid[0]-1) #definitions of bins
         bins = np.digitize(pos,edges)
         for j,b in enumerate(bins):
             rmag = photo[j][5]

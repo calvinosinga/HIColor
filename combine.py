@@ -31,14 +31,14 @@ def get_mass(key,path):
         f=hp.File(path,'r')
     except IOError:
         print('files not found')
-        return np.zeros(grid, dtype=np.float32)
+        return np.zeros(grid, dtype=np.float32), np.zeros(3)
     else:
         try:
             mass = f[key]
             flags = f['flags']
         except KeyError:
             print(key+' field not found - creating substitute')
-            return np.zeros(grid, dtype=np.float32)
+            return np.zeros(grid, dtype=np.float32), np.zeros(3)
         else:
             return mass,flags
 if "-" in run:
@@ -54,6 +54,7 @@ if "-" in run:
     w = hp.File(result,'w')
     w.create_dataset(run,data=total)
     w.create_dataset("flags",data=totflags)
+    print(totflags)
 else:
     total,totflags = get_mass(run,first)
     sum1 = np.sum(total)
@@ -83,6 +84,7 @@ else:
     w = hp.File(result,'w')
     w.create_dataset(run,data=total)
     w.create_dataset("flags",data=totflags)
+    print(totflags)
 
 
 
