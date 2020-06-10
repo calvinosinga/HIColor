@@ -11,8 +11,10 @@ gunzip $1.gz
 
 python convert.py $1
 
-gzip delta_hi_paco.hdf5
+gzip delta_HI_paco.hdf5
 gzip delta_m_paco.hdf5
 
-mv delta_hi_paco.hdf5.gz /staging/cosinga/output
+mv delta_HI_paco.hdf5.gz /staging/cosinga/output
 mv delta_m_paco.hdf5.gz /staging/cosinga/output
+
+rm $1
