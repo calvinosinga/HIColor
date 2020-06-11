@@ -28,9 +28,9 @@ def parch(parents,children):
     f.write("\n")
 
 varnam = ["run","file0","file1","file2","file3","result"]
-varval = ["red-blue","red_final.hdf5","blue_final.hdf5","zeros.hdf5","zeros.hdf5","detection_final.hdf5"]
+varval = ["red_and_blue","red_final.hdf5","blue_final.hdf5","zeros.hdf5","zeros.hdf5","detection_final.hdf5"]
 job("COMBINE_DETECTION", varnam,varval,"combine.sub")
-varval = ["\"red-blue-nondetection\"","\"red_final.hdf5\"","\"blue_final.hdf5\"","\"nondetection_final.hdf5\"","\"zeros.hdf5\"","\"subhalo_final.hdf5\""]
+varval = ["\"red_and_blue_and_nondetection\"","red_final.hdf5","blue_final.hdf5","nondetection_final.hdf5","zeros.hdf5","subhalo_final.hdf5"]
 job("COMBINE_SUBHALO", varnam,varval,"combine.sub")
 
 

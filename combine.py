@@ -41,8 +41,8 @@ def get_mass(key,path):
             return np.zeros(grid, dtype=np.float32), np.zeros(3)
         else:
             return mass,flags
-if "-" in run:
-    runs = run.split("-")
+if "_and_" in run:
+    runs = run.split("_and_")
     total = np.zeros(grid)
     totflags = np.zeros(3)
     for r in runs:
