@@ -68,7 +68,7 @@ for k in keys:
         total,ptlcount[4] = add_field(f,k,total)
     elif k=="PartType5":
         total,ptlcount[5] = add_field(f,k,total)
-if not nptl == ptlcount:
+if not nptl == np.sum(ptlcount):
     flags[2]=1
 w = hp.File('ptl_'+str(snapshot)+'_'+str(chunk)+'.hdf5', 'w')
 w.create_dataset("mass", data=total)

@@ -29,7 +29,7 @@ field = np.divide(field,avg); field = np.add(field,-1)
 xfield = np.divide(xfield,BOXSIZE**3) #converts to a density
 avg = np.mean(xfield)
 xfield = np.divide(xfield,avg); xfield = np.add(xfield,-1)
-res = XPk([field,xfield],BOXSIZE, axis = 0, MAS=['NGP','NGP']) #need to change the mass assignment scheme -> digital?
+res = XPk([field,xfield],BOXSIZE, axis = 0, MAS=['NGP','NGP'])
 pk1 = np.transpose([res.k3D, res.Pk[:,0,0]])
 pk2 = np.transpose([res.k3D, res.Pk[:,0,1]])
 xpk = np.transpose([res.k3D, res.XPk[:,0,0]])
