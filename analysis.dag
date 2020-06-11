@@ -6,7 +6,7 @@ VARS COMBINE_DETECTION file2= "zeros.hdf5"
 VARS COMBINE_DETECTION file3= "zeros.hdf5"
 VARS COMBINE_DETECTION result= "detection_final.hdf5"
 JOB COMBINE_SUBHALO combine.sub
-VARS COMBINE_SUBHALO run= ""red_and_blue_and_nondetection""
+VARS COMBINE_SUBHALO run= "red_and_blue_and_nondetection"
 VARS COMBINE_SUBHALO file0= "red_final.hdf5"
 VARS COMBINE_SUBHALO file1= "blue_final.hdf5"
 VARS COMBINE_SUBHALO file2= "nondetection_final.hdf5"
