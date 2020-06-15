@@ -7,6 +7,6 @@ export HOME=$PWD
 
 cp /staging/cosinga/output/$1.gz ./
 
-python compare.py $1 $2
+python compare.py $1
 
-mv $2 /staging/cosinga/storage
+mv $1_dist.txt /staging/cosinga/storage
