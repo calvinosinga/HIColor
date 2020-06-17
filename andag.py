@@ -27,11 +27,11 @@ def parch(parents,children):
         f.write(str(c)+" ")
     f.write("\n")
 
-varnam = ["run","file0","file1","file2","file3","result"]
-varval = ["red_and_blue","red_final.hdf5","blue_final.hdf5","zeros.hdf5","zeros.hdf5","detection_final.hdf5"]
-job("COMBINE_DETECTION", varnam,varval,"combine.sub")
-varval = ["red_and_blue_and_nondetection","red_final.hdf5","blue_final.hdf5","nondetection_final.hdf5","zeros.hdf5","subhalo_final.hdf5"]
-job("COMBINE_SUBHALO", varnam,varval,"combine.sub")
+# varnam = ["run","file0","file1","file2","file3","result"]
+# varval = ["red_and_blue","red_final.hdf5","blue_final.hdf5","zeros.hdf5","zeros.hdf5","detection_final.hdf5"]
+# job("COMBINE_DETECTION", varnam,varval,"combine.sub")
+# varval = ["red_and_blue_and_nondetection","red_final.hdf5","blue_final.hdf5","nondetection_final.hdf5","zeros.hdf5","subhalo_final.hdf5"]
+# job("COMBINE_SUBHALO", varnam,varval,"combine.sub")
 
 
 xpks = ["red","blue","nondetection","subhalo","detection","delta_HI","delta_m"]
@@ -49,5 +49,5 @@ for i in xpks:
             if i == "subhalo" or j=="subhalo":
                 subch.append(jobname.upper())
 
-parch("COMBINE_DETECTION",detch)
-parch("COMBINE_SUBHALO", subch)
+# parch("COMBINE_DETECTION",detch)
+# parch("COMBINE_SUBHALO", subch)
