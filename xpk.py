@@ -13,14 +13,24 @@ savexpk = sys.argv[7]
 BOXSIZE = 75.0 #Mpc/h
 f = hp.File(filename,'r')
 g = hp.File(xfilename,'r')
-field = f[fieldname][:]
-flags = f['flags']
 
-xfield = f[xfieldname][:]
-if 'flags' in list(g.keys()):
-    xflags = f['flags']
+
+gkeys = list(g.keys())
+fkeys = list(f.keys())
+
+if 'flags' in gkeys:
+    xflags = g['flags']
 else:
     xflags = 'not applicable'
+
+if 'flags' in fkeys:
+    flags = f['flags']
+else:
+    flags = 'not applicable'
+
+field = f[fkeys[0]][:]
+xfield = g[gkeys[0]][:]
+
 print(flags)
 print(xflags)
 field = np.divide(field,BOXSIZE**3) #converts to a density
