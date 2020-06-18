@@ -9,6 +9,6 @@ Requirements = (Target.HasCHTCStaging == true)
 arguments = $(HIfile)
 transfer_input_files = http://proxy.chtc.wisc.edu/SQUID/chtc/python27.tar.gz, packages.tar.gz, HIColor/compare.py
 request_cpus = 1
-request_memory = 65GB
+request_memory = 100GB
 request_disk = 130GB
 queue HIfile from HIfile_list.txt
