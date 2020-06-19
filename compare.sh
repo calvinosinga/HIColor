@@ -11,4 +11,5 @@ gunzip $1.gz
 
 python compare.py $1
 
-mv $1_dist.txt /staging/cosinga/storage
+gzip $1_dist.hdf5
+mv $1_dist.hdf5.gz /staging/cosinga/storage

@@ -10,5 +10,7 @@ print(dat.shape)
 mid = int(dat.shape[0]/2.0)
 dat = dat[mid-30:mid+30,:,:]
 dat = np.sum(dat,axis=0)
-np.savetxt(name+'_dist.txt',dat)
+print(np.mean(dat))
+w = hp.File(name+'_dist.hdf5','w')
+w.create_dataset('slice',data=dat)
 print("finished python file")
