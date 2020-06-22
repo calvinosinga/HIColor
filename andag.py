@@ -36,18 +36,22 @@ def parch(parents,children):
 
 xpks = ["red","blue","nondetection","subhalo","detection","delta_HI","delta_m"]
 varnam = ["file1","key1","file2","key2","pk1","pk2","xpk"]
-detch =[]
-subch = []
+
 for i in xpks:
     for j in xpks:
         if not i==j:
             varvals=[i+'_final.hdf5',i,j+'_final.hdf5',j,i+"pk.txt",j+"pk.txt",i+'-'+j+'pk.txt']
             jobname = i+'_'+j
             job(jobname.upper(),varnam,varvals,"xpk.sub")
-            if i == "detection" or j=="detection":
-                detch.append(jobname.upper())
-            if i == "subhalo" or j=="subhalo":
-                subch.append(jobname.upper())
 
-# parch("COMBINE_DETECTION",detch)
-# parch("COMBINE_SUBHALO", subch)
+
+bens = []
+for i in range(9):
+    bens.append("benhi_"+str(i)+".hdf5")
+runs = ['GD14_map','GD14_vol','GK11_map','GK11_vol','K13_map','K13_vol','L08_map','S14_map','S14_vol']
+
+for i in range(len(bens)):
+    for j in xpks:
+        varvals = [bens[i],"hi",j+"_final.hdf5",j,runs[i]+"pk.txt",j+"pk.txt",bens[i]+'-'+j+'pk.txt']
+        jobname = runs[i]+'_'+j
+        job(jobname.upper(),varnam,varvals,"xpk.sub")
