@@ -13,3 +13,4 @@ python compare.py $1
 
 gzip $1_dist.hdf5
 mv $1_dist.hdf5.gz /staging/cosinga/storage
+rm $1

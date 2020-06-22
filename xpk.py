@@ -27,9 +27,16 @@ if 'flags' in fkeys:
     flags = f['flags']
 else:
     flags = 'not applicable'
-
-field = f[fkeys[0]][:]
-xfield = g[gkeys[0]][:]
+print(gkeys)
+print(fkeys)
+idx = 0
+if f[fkeys[idx]] == 'flags':
+    idx = 1
+gidx = 0
+if g[gkeys[idx]] == 'flags':
+    gidx = 1
+field = f[fkeys[idx]][:]
+xfield = g[gkeys[gidx]][:]
 
 print(flags)
 print(xflags)
