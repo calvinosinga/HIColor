@@ -34,6 +34,8 @@ xfield = g[xfieldname][:]
 
 print(flags)
 print(xflags)
+print(field.shape)
+print(xfield.shape)
 field = np.divide(field,BOXSIZE**3) #converts to a density
 avg = np.mean(field)
 field = np.divide(field,avg); field = np.add(field,-1)
