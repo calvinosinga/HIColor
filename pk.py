@@ -15,10 +15,6 @@ if 'flags' in list(f.keys()):
 field = np.divide(field,BOXSIZE**3) #converts to a density
 avg = np.mean(field)
 field = np.divide(field,avg); field = np.add(field,-1)
-pk = Pk(field,BOXSIZE, axis = 0, MAS='NGP') #need to change the mass assignment scheme -> digital?
+pk = Pk(field,BOXSIZE, axis = 0, MAS='NGP')
 tpk = np.transpose([pk.k3D, pk.Pk[:,0]])
 np.savetxt(savename,tpk)
-
-
-
-

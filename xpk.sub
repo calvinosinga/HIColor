@@ -10,7 +10,6 @@ arguments = $(file1) $(key1) $(file2) $(key2) $(pk1) $(pk2) $(xpk)
 transfer_output_files = $(pk1), $(pk2), $(xpk)
 transfer_input_files = http://proxy.chtc.wisc.edu/SQUID/chtc/python27.tar.gz, packages.tar.gz, HIColor/xpk.py
 request_cpus = 1
-
 request_memory = 160GB
 request_disk = 95GB
 queue
