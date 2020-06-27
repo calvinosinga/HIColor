@@ -31,7 +31,7 @@ else:
     has_key = True
     field = np.zeros(grid, dtype=np.float32)
     try:
-        pos = f['Subhalo']['SubhaloCM']
+        pos = .001*f['Subhalo']['SubhaloCM'] #Mpc/h, given in kpc/h so converting
         mass = f['Subhalo']['SubhaloMass']
         photo = f['Subhalo']['SubhaloStellarPhotometrics']
     except KeyError:
@@ -56,5 +56,7 @@ else:
     w = hp.File(RUN+str(CHUNK)+'.hdf5', 'w')
     w.create_dataset(RUN,data=field)   
     w.create_dataset('flags',data=flags)
+    print(flags)
+    print(err)
     
         

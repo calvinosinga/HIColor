@@ -58,26 +58,25 @@ def get_mass(key,path):
 
 total,totflags = get_mass(run,first)
 sum1 = np.sum(total)
-print('first field:' + str(sum1))
+print('first field: ' + str(sum1))
 m,fl = get_mass(run,second)
 totflags=np.add(totflags,fl)
 sum2 =np.sum(m)
-print('second field:' + str(sum2))
+print('second field: ' + str(sum2))
 total=np.add(total,m)
 tot1 = np.sum(total)
 print('first sum should be' + str(sum1+sum2)+', is: ' +str(tot1))
-
 m,fl = get_mass(run,third)
 sum3 = np.sum(m)
 totflags=np.add(totflags,fl)
-print('third field:' + str(sum3))
+print('third field: ' + str(sum3))
 total=np.add(total,m)
 tot2=np.sum(total)
-print('second sum should be' + str(sum1+sum2+sum3)+', is: ' +str(tot2))
+print('second sum should be ' + str(sum1+sum2+sum3)+', is: ' +str(tot2))
 m,fl = get_mass(run,fourth)
 totflags=np.add(totflags,fl)
 sum4=np.sum(m)
-print('third field:' + str(sum4))
+print('third field: ' + str(sum4))
 total = np.add(total,m)
 tot3 = np.sum(total)
 print('last sum should be '+str(sum1+sum2+sum3+sum4)+', is: '+ str(tot3))
@@ -85,8 +84,6 @@ w = hp.File(result,'w')
 w.create_dataset(run,data=total)
 w.create_dataset("flags",data=totflags)
 print(totflags)
-
-
 
 # if run == 'subhalo':
 #     keys = ['red','blue','dim','bright','nondetection']

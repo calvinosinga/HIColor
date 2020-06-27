@@ -15,7 +15,8 @@ if 'flags' in list(f.keys()):
     print(flags)
 
 field = np.divide(field,BOXSIZE**3) #converts to a density
-avg = np.mean(field)
+avg = np.mean(field).astype(np.float32)
+
 field = np.divide(field,avg); field = np.add(field,-1)
 pk = Pk(field,BOXSIZE, axis = 0, MAS='NGP')
 tpk = np.transpose([pk.k3D, pk.Pk[:,0]])
