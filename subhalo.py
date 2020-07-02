@@ -30,8 +30,9 @@ except IOError:
 else:
     has_key = True
     field = np.zeros(grid, dtype=np.float32)
+    
     try:
-        pos = f['Subhalo']['SubhaloCM'][:] #Mpc/h, given in kpc/h so converting
+        pos = .001*f['Subhalo']['SubhaloCM'][:] #Mpc/h, given in kpc/h so converting
         mass = f['Subhalo']['SubhaloMass']
         photo = f['Subhalo']['SubhaloStellarPhotometrics']
     except KeyError:
@@ -58,4 +59,3 @@ else:
     w.create_dataset('flags',data=flags)
     print(flags)
     print(err)
-   
