@@ -15,8 +15,7 @@ CHUNK = sys.argv[1]
 RUN = sys.argv[2]
 LUM_MIN = -16 #detection minimum from Swanson
 SNAPSHOT = sys.argv[3]
-# RUN can be 'blue','red'
-BOXSIZE = 75 #Mpc/h
+BOXSIZE = 75000 #kpc/h
 def isred(gr, rband):#color definition as given in Swanson
     return gr> .9 - .03*(rband+23)
 ###################################
@@ -31,9 +30,8 @@ except IOError:
 else:
     has_key = True
     field = np.zeros(grid, dtype=np.float32)
-    
     try:
-        pos = .001*f['Subhalo']['SubhaloCM'][:] #Mpc/h, given in kpc/h so converting
+        pos = f['Subhalo']['SubhaloCM'][:] #kpc/h
         mass = f['Subhalo']['SubhaloMass']
         photo = f['Subhalo']['SubhaloStellarPhotometrics']
     except KeyError:
@@ -56,6 +54,7 @@ else:
                 if not rmag<=LUM_MIN:
                     field[b[0],b[1],b[2]]+= mass[j]     
     w = hp.File(RUN+str(CHUNK)+'.hdf5', 'w')
+    field = field.astype(np.float32)
     w.create_dataset(RUN,data=field)   
     w.create_dataset('flags',data=flags)
     print(flags)
