@@ -1,0 +1,14 @@
+universe = vanilla
+executable = pk.sh
+log = $(pk).log
+output = $(pk).out
+error = $(pk).err
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+Requirements = (Target.HasCHTCStaging == true)
+arguments = $(file) $(key) $(pk)
+transfer_input_files = http://proxy.chtc.wisc.edu/SQUID/chtc/python27.tar.gz, packages.tar.gz, HIColor/powersp/pk.py
+request_cpus = 1
+request_memory = 140GB
+request_disk = 40GB
+queue
