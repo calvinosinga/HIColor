@@ -19,6 +19,7 @@ python combine.py $1 $2 $3 $4 $5 $6
 
 gzip $6
 mv $6.gz /staging/cosinga/output
+
 rm $2
 rm $3
 rm $4
