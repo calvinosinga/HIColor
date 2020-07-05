@@ -9,6 +9,6 @@ arguments = $(chunk) $(run) $(ss)
 transfer_input_files = subhalo99/fof_subhalo_tab_0$(ss).$(chunk).hdf5, http://proxy.chtc.wisc.edu/SQUID/chtc/python27.tar.gz, packages.tar.gz, HIColor/subhalo/subhalo.py
 Requirements = (Target.HasCHTCStaging == true)
 request_cpus = 1
-request_memory = 43GB
+request_memory = 50GB
 request_disk = 40GB
 queue

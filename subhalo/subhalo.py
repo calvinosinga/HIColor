@@ -31,7 +31,7 @@ else:
     has_key = True
     field = np.zeros(grid, dtype=np.float32)
     try:
-        pos = f['Subhalo']['SubhaloCM'][:] #kpc/h
+        pos = f['Subhalo']['SubhaloCM'] #kpc/h
         mass = f['Subhalo']['SubhaloMass']
         photo = f['Subhalo']['SubhaloStellarPhotometrics']
     except KeyError:
