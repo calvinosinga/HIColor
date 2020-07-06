@@ -54,8 +54,9 @@ else:
                 if not rmag<=LUM_MIN:
                     field[b[0],b[1],b[2]]+= mass[j]     
     w = hp.File(RUN+str(CHUNK)+'.hdf5', 'w')
-    field = field.astype(np.float32)
+#    field = field.astype(np.float32)
     w.create_dataset(RUN,data=field)   
     w.create_dataset('flags',data=flags)
     print(flags)
     print(err)
+    
