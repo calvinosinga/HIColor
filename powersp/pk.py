@@ -6,7 +6,7 @@ from Pk_library import Pk
 filename = sys.argv[1]
 fieldname = sys.argv[2]
 savename = sys.argv[3]
-BOXSIZE = 75.0 #Mpc/h
+BOXSIZE = 75000.0 #kpc/h
 f = hp.File(filename,'r')
 field = f[fieldname][:]
 field = field.astype(np.float32)

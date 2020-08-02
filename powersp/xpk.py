@@ -10,11 +10,10 @@ xfieldname = sys.argv[4]
 savepk1 = sys.argv[5]
 savepk2 = sys.argv[6]
 savexpk = sys.argv[7]
-BOXSIZE = 75.0 #Mpc/h
+BOXSIZE = 75000.0 #Mpc/h
 f = hp.File(filename,'r')
 g = hp.File(xfilename,'r')
 print('loaded files')
-
 gkeys = list(g.keys())
 fkeys = list(f.keys())
 
@@ -32,6 +31,7 @@ else:
 field = f[fieldname][:]
 xfield = g[xfieldname][:]
 print('loaded datasets')
+print(type(xfield[0,0,0]))
 print(flags)
 print(xflags)
 print(field.shape)
