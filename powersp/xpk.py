@@ -10,7 +10,7 @@ xfieldname = sys.argv[4]
 savepk1 = sys.argv[5]
 savepk2 = sys.argv[6]
 savexpk = sys.argv[7]
-BOXSIZE = 75000.0 #Mpc/h
+BOXSIZE = 75000.0 #kpc/h
 f = hp.File(filename,'r')
 g = hp.File(xfilename,'r')
 print('loaded files')
@@ -36,13 +36,13 @@ print(flags)
 print(xflags)
 print(field.shape)
 print(xfield.shape)
-field = np.divide(field,BOXSIZE**3) #converts to a density
+field = np.divide(field,BOXSIZE**3,dtype=np.float32) #converts to a density
 avg = np.mean(field)
-field = np.divide(field,avg); field = np.add(field,-1)
+field = np.divide(field,avg,dtype=np.float32); field = np.add(field,-1,dtype=np.float32)
 print('converted first field to an overdensity')
-xfield = np.divide(xfield,BOXSIZE**3) #converts to a density
+xfield = np.divide(xfield,BOXSIZE**3,dtype=np.float32) #converts to a density
 avg = np.mean(xfield)
-xfield = np.divide(xfield,avg); xfield = np.add(xfield,-1)
+xfield = np.divide(xfield,avg,dtype=np.float32); xfield = np.add(xfield,-1,dtype=np.float32)
 print('converted second field to an overdensity')
 res = XPk([field,xfield],BOXSIZE, axis = 0, MAS=['NGP','NGP'])
 pk1 = np.transpose([res.k3D, res.Pk[:,0,0]])
