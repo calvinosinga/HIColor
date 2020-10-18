@@ -2,9 +2,9 @@
 #SBATCH --share
 #SBATCH --mail-user=cosinga@umd.edu
 #SBATCH --mail-type=ALL
-#SBATCH -t 00:30
+#SBATCH -t 01:00
 #SBATCH -n 1
-#SBATCH +60
+#SBATCH --mem=550
 
 cd /homes/cosinga/lstr
 . ~/.profile
