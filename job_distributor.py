@@ -1,13 +1,14 @@
 #!/bin/env python
 
-#SBATCH --job-name=JobDist
-#SBATCH --output=output_slurm.dat
-#SBATCH --time=8:00:00
+#SBATCH --share
+#SBATCH --job-name=hiptl
+#SBATCH --output=output_hiptl.dat
+#SBATCH --time=01:00
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=16
-
-##SBATCH --partition=
-##SBATCH --account=
+#SBATCH --ntasks-per-node=2
+#SBATCH --mail-user=cosinga@umd.edu
+#SBATCH --mail-type=ALL
+#SBATCH --account=astronomy-hi
 
 ########################################################################################################
 # 
@@ -46,7 +47,7 @@ start_time = time.time()
 N_PROC = os.environ["SLURM_JOB_CPUS_PER_NODE"]
 
 # Find commands to execute
-f = open('commands.txt', 'r')
+f = open('/homes/cosinga/HIColor/commands.txt', 'r')
 commands = []
 for line in f.readlines():
     commands.append(line.rstrip())
@@ -75,7 +76,7 @@ while complete < n_commands:
     while len(pipes) < N_PROC and i < n_commands:
         logName = "Command_%03d.log" % (i)
         fLog = open(logName, 'w')
-        arguments = ['srun', '--exclusive', '-N1', '-n1', '-np', '1']
+        arguments = ['srun', '--share', '-N1', '-n1', '-np', '1']
         arguments.extend(commands[i].split())
         pipes[i] = subprocess.Popen(arguments, stdout = fLog, stderr=subprocess.STDOUT)
         dt = time.time() - start_time

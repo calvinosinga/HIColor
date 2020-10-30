@@ -1,0 +1,2 @@
+python /homes/cosinga/HIColor/hiptl/hiptl.py 0
+python /homes/cosinga/HIColor/hiptl/hiptl.py 1
