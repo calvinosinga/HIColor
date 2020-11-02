@@ -44,7 +44,7 @@ printLine()
 
 start_time = time.time()
 
-N_PROC = os.environ["SLURM_JOB_CPUS_PER_NODE"]
+N_PROC = int(os.environ["SLURM_JOB_CPUS_PER_NODE"])
 
 # Find commands to execute
 f = open('/homes/cosinga/HIColor/commands.txt', 'r')
@@ -76,7 +76,7 @@ while complete < n_commands:
     while len(pipes) < N_PROC and i < n_commands:
         logName = "Command_%03d.log" % (i)
         fLog = open(logName, 'w')
-        arguments = ['srun', '--share', '-N1', '-n1', '-np', '1']
+        arguments = ['srun', '--share', '-N1', '-n1']
         arguments.extend(commands[i].split())
         pipes[i] = subprocess.Popen(arguments, stdout = fLog, stderr=subprocess.STDOUT)
         dt = time.time() - start_time
