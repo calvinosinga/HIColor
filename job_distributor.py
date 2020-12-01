@@ -3,12 +3,13 @@
 #SBATCH --share
 #SBATCH --job-name=hiptl
 #SBATCH --output=output_hiptl.dat
-#SBATCH --time=01:00
+#SBATCH --time=10:00
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks-per-node=7
 #SBATCH --mail-user=cosinga@umd.edu
 #SBATCH --mail-type=ALL
 #SBATCH --account=astronomy-hi
+#SBATCH --mem=37000
 
 ########################################################################################################
 # 
@@ -37,7 +38,6 @@ def printLine():
     return
 
 ########################################################################################################
-# subprocess.run(["module","load","python/3.7.7"])
 printLine()
 print("Welcome to the job distributor.")
 printLine()
