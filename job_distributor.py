@@ -47,7 +47,7 @@ start_time = time.time()
 N_PROC = int(os.environ["SLURM_JOB_CPUS_PER_NODE"])
 
 # Find commands to execute
-f = open('/homes/cosinga/HIColor/commands.txt', 'r')
+f = open('/lustre/cosinga/HIColor/commands.txt', 'r')
 commands = []
 for line in f.readlines():
     commands.append(line.rstrip())
