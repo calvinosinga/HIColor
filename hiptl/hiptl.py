@@ -23,7 +23,8 @@ out.write('\n'+"successfully opened the ptlfile\n \n")
 mass = ptlfile['PartType0']['Masses'][:] #~50 MB
 pos = ptlfile['PartType0']['CenterOfMass'][:] # ~150 MB
 f_neut_h = hih2file['PartType0']['f_neutral_H'][:] #~100 MB
-models = ['GD14', 'GK11', 'K13', 'S14']
+#models = ['GD14', 'GK11', 'K13', 'S14']
+models = ['GD14']
 w = hp.File(SAVE+'hiptl_99.'+CHUNK+'.hdf5', 'w')
 bins = np.digitize(pos, edges) # ~300 MB
 for m in models:

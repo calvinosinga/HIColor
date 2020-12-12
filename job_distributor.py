@@ -3,13 +3,14 @@
 #SBATCH --share
 #SBATCH --job-name=hiptl
 #SBATCH --output=output_hiptl.dat
-#SBATCH --time=20:00
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
+#SBATCH --time=1:00:00
+##SBATCH --nodes=1
+##SBATCH --ntasks-per-node=1
+#SBATCH --ntasks=4
 #SBATCH --mail-user=cosinga@umd.edu
 #SBATCH --mail-type=ALL
 #SBATCH --account=astronomy-hi
-#SBATCH --mem=42000
+#SBATCH --mem-per-cpu=42000
 
 ########################################################################################################
 # 
@@ -44,7 +45,7 @@ printLine()
 
 start_time = time.time()
 
-N_PROC = int(os.environ["SLURM_JOB_CPUS_PER_NODE"])
+N_PROC = int(float(os.environ["SLURM_JOB_CPUS_PER_NODE"]))
 
 # Find commands to execute
 f = open('/lustre/cosinga/HIColor/commands.txt', 'r')
