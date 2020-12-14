@@ -3,14 +3,14 @@
 #SBATCH --share
 #SBATCH --job-name=hiptl
 #SBATCH --output=output_hiptl.dat
-#SBATCH --time=1:00:00
+#SBATCH --time=2:00:00
 ##SBATCH --nodes=1
 ##SBATCH --ntasks-per-node=1
 #SBATCH --ntasks=4
 #SBATCH --mail-user=cosinga@umd.edu
 #SBATCH --mail-type=ALL
 #SBATCH --account=astronomy-hi
-#SBATCH --mem-per-cpu=42000
+#SBATCH --mem-per-cpu=45000
 
 ########################################################################################################
 # 

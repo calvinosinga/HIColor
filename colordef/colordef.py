@@ -19,9 +19,17 @@ COLORDEF = sys.argv[4]
 BOXSIZE = 75000 #kpc/h
 ###################################
 
-def isred(gr, rband):#color definition as given in Swanson
+def swanson(gr, rband):#color definition as given in Swanson
+    """
+    returns true if red.
+    """
     return gr> .9 - .03*(rband+23)
     
+def diemer(gr, st_mass): #Benedikt's color definition
+    """
+    returns true if red
+    """
+    return 
 
 flags = np.zeros(3, dtype=np.int32)
 err = 'there was no error'
