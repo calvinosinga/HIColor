@@ -45,8 +45,8 @@ printLine()
 
 start_time = time.time()
 
-N_PROC = int(float(os.environ["SLURM_JOB_CPUS_PER_NODE"]))
-
+# N_PROC = int(float(os.environ["SLURM_JOB_CPUS_PER_NODE"]))
+N_PROC = int(os.environ["SLURM_NTASKS"])
 # Find commands to execute
 f = open('/lustre/cosinga/HIColor/commands.txt', 'r')
 commands = []
