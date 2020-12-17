@@ -6,11 +6,11 @@
 #SBATCH --time=4:00:00
 ##SBATCH --nodes=1
 ##SBATCH --ntasks-per-node=1
-#SBATCH --ntasks=4
+#SBATCH --ntasks=8
 #SBATCH --mail-user=cosinga@umd.edu
 #SBATCH --mail-type=ALL
 #SBATCH --account=astronomy-hi
-#SBATCH --mem-per-cpu=45000
+#SBATCH --mem-per-cpu=50000
 
 ########################################################################################################
 # 
@@ -49,6 +49,7 @@ start_time = time.time()
 N_PROC = int(os.environ["SLURM_NTASKS"])
 # Find commands to execute
 f = open('/lustre/cosinga/HIColor/commands.txt', 'r')
+print(N_PROC)
 commands = []
 for line in f.readlines():
     commands.append(line.rstrip())
