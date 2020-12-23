@@ -6,11 +6,11 @@
 #SBATCH --time=4:00:00
 ##SBATCH --nodes=1
 ##SBATCH --ntasks-per-node=1
-#SBATCH --ntasks=8
+#SBATCH --ntasks=448
 #SBATCH --mail-user=cosinga@umd.edu
 #SBATCH --mail-type=ALL
 #SBATCH --account=astronomy-hi
-#SBATCH --mem-per-cpu=50000
+#SBATCH --mem-per-cpu=52000
 
 ########################################################################################################
 # 
