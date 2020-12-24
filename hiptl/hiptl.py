@@ -1,6 +1,7 @@
 import numpy as np
 import h5py as hp
 import sys
+import zipfile as zf
 CHUNK = sys.argv[1]
 BASE = '/lustre/diemer/illustris/hih2/' 
 HOME = '/lustre/cosinga/ptl99/'
@@ -26,3 +27,6 @@ for m in models:
     for ptl,b in enumerate(bins):
         field[b[0],b[1],b[2]] += masshi[ptl]
     w.create_dataset(m, data=field)
+wzip = zf.ZipFile(SAVE+'hiptl_99.'+CHUNK+'.hdf5.zip', 'w')
+wzip.write(SAVE+'hiptl_99.'+CHUNK+'.hdf5', compress_type=zf.ZIP_DEFLATED)
+wzip.close()
