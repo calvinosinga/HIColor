@@ -2,6 +2,7 @@ import numpy as np
 import h5py as hp
 import sys
 import zipfile as zf
+import os
 CHUNK = sys.argv[1]
 BASE = '/lustre/diemer/illustris/hih2/' 
 HOME = '/lustre/cosinga/ptl99/'
@@ -30,3 +31,4 @@ for m in models:
 wzip = zf.ZipFile(SAVE+'hiptl_99.'+CHUNK+'.hdf5.zip', 'w')
 wzip.write(SAVE+'hiptl_99.'+CHUNK+'.hdf5', compress_type=zf.ZIP_DEFLATED)
 wzip.close()
+os.remove(SAVE+'hiptl_99.'+CHUNK+'.hdf5')

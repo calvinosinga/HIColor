@@ -3,7 +3,7 @@
 #SBATCH --share
 #SBATCH --job-name=hiptl
 #SBATCH --output=output_hiptl.dat
-#SBATCH --time=1:00:00
+#SBATCH --time=3:00:00
 ##SBATCH --nodes=1
 ##SBATCH --ntasks-per-node=1
 #SBATCH --ntasks=8
@@ -49,7 +49,7 @@ start_time = time.time()
 N_PROC = int(os.environ["SLURM_NTASKS"])
 # Find commands to execute
 f = open('/lustre/cosinga/HIColor/commands.txt', 'r')
-print(N_PROC)
+#print(N_PROC)
 commands = []
 for line in f.readlines():
     commands.append(line.rstrip())
