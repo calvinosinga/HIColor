@@ -3,7 +3,7 @@
 #SBATCH --share
 #SBATCH --job-name=hiptl
 #SBATCH --output=output_hiptl.dat
-#SBATCH --time=12:00:00
+#SBATCH --time=8:00:00
 ##SBATCH --nodes=1
 ##SBATCH --ntasks-per-node=1
 #SBATCH --ntasks=448
