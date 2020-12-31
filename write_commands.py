@@ -1,5 +1,5 @@
 f = open("commands.txt", "w")
-fileno = 448
+fileno = 50
 for i in range(fileno):
     if i==fileno-1:
         f.write("python3 /lustre/cosinga/HIColor/hiptl/hiptl.py " +str(i))
